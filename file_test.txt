@@ -1,0 +1,210 @@
+1
+12
+123
+1234
+12345
+1234567s8910
+12345678910a
+13453243
+hola tambien
+pa-labra
+url: https://www.instagram.com/p/BXB4zsUlW5Z/?taken-by=beco.mx
+url: http://instagram.com/p/blablablah
+url: http://itam.mx/test
+http://instagram.com/p/blablablah
+csv1,csv2,csv3,csv4,csv5
+Rodrigo Jiménez Gutiérrez
+565811
+56-58-11
+56.58.11
+56.58-11
+56 58 11
+56y58r11
+302-345-9876
+esto.es.un.mail+gmail@mail.com
+dominio.com
+[LOG ENTRY] [ERROR] The system is unstable
+[LOG ENTRY] [WARN] The system may be down
+[LOG ENTRY] [LOG] Everything is OK
+[LOG ENTRY] [LOG] [user:@beco] Logged in
+[LOG ENTRY] [LOG] [user:@beco] Clicked here
+[LOG ENTRY] [LOG] [user:@beco] Rated the app
+[LOG ENTRY] [LOG] [user:@beco] Logged out
+#ABC123
+DE LA A-F Y DEL 0-9
+csv1,csv2,csv3
+1234,543,234
+432,765,368
+678,875,986,12
+
+[LOG ENTRY] [ERROR] The system is unstable
+[LOG ENTRY] [WARN] The system may be down
+[LOG ENTRY] [WARN] Microsoft just bought Github
+[LOG DATA] [LOG] Everything is OK
+[LOG ENTRY] [LOG] [user:@beco] Logged in
+[LOG ENTRY] [LOG] [user:@beco] Clicked here
+[LOG DATA] [LOG] [user:@celismx] Did something
+[LOG ENTRY] [LOG] [user:@beco] Rated the app
+[LOG ENTRY] [LOG] [user:@beco] Logged out
+[LOG LINE] [LOG] [user:@celismx] Logged in
+
+
+ 
+url: https://www.instagram.com/p/BXB4zsUlW5Z/?taken-by=beco.mx
+url: http://instagram.com/p/blablablah
+url: http://itam.mx/test
+http://instagram.com/p/blablablah
+https://www.google.com.co/
+https://sub.dominio.de.alguien.com/archivo.html
+https://en.wikipedia.org/wiki/.org
+https://cdn-microsoft.org/image/seixo2t9sjl_22.jpg
+https://hola.pizza
+https://platzi.com/clases/1301-expresiones-regulares/11860-urls9102/clase
+https://hola.pizza de_peperoni
+
+
+gmail solo permite . y no _
+yahoo y hotmail perimte _ y no .
+
+esto.es_un.mail@mail.com
+esto.es_un.mail+complejo@mail.com
+dominio.com
+rodrigo.jimenez@yahoo.com.mx
+ruben@starbucks.com
+esto_no$es_email@dominio.com
+no_se_de_internet3@hotmail.com
+
+
+
+LATITUD Y LONGITUD EN FORMATO DECIMAL:
+-99.205646,
+-99.205646,19.429707,2275.10
+-99.205581, 19.429652,2275.10
+-99.204654,19.428952,2275.58
+
+LATITUD Y LONGITUD EN FORMATO DE RADIANES:
+-99 12' 34.08"W, 19 34' 56.98"N
+-34 54' 32.00"E, -3 21' 67.00"S
+
+
+REGEX que ayuda a filtrar coordenada de latitud y longitud en formato decimal:
+^-?\d{1,3}\.\d{1,6},\s?-?\d{1,3}\.\d{1,6},.*$
+
+REGEX que ayuda a filtrar coordenada de latitud y longitud en formato de radianes:
+^-?\d{1,3}\s\d{1,2}' \d{1,2}\.\d{2,2}"[WE], -?\d{1,3}\s\d{1,2}' \d{1,2}\.\d{2,2}"[NS]$
+
+Nombres(?) Reto
+
+REGEX para validar nombres propios:
+^[A-Z][a-z]{3,}\s?[A-Z]?[a-z]{0,}$
+
+REGEX 2 (mas completa) para validar nombres propios:
+^([A-Z][a-z]{1,}\s?){2,}.*$
+
+
+Nombres de Ejemplo:
+
+Camilo Sarmiento Gálvez
+Alejandro Pliego Abasto
+Milagros Reyes Japón
+Samuel París Arrabal
+Juan Pablo Tafalla
+Axel Gálvez Velázquez
+Óscar Montreal Aparicio
+Jacobo Pozo Tassis
+Guillermo Ordóñez Espiga
+Eduardo Pousa Curbelo
+Ivanna Bienvenida Kevin
+Ada Tasis López
+Luciana Sáenz García
+Florencia Sainz Márquz
+Catarina Cazalla Lombarda
+Paloma Gallo Perro
+Margarita Quesada Florez
+Vicente Fox Quesada
+Iris Graciani
+Asunción Carballar
+Constanza Muñoz
+Manuel Andres García Márquez
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Búsqueda y reemplazo   (link de data para ejercicio  :  https://github.com/gingsmith/moviedemo/blob/master/movies.dat)
+
+REGEX:
+
+Se pueden generar grupos al utilizar paréntesis “()”, cada uno de esos paréntesis a la hora de reemplazar podemos acceder 
+a el valor dentro del grupo con la variable $1, $2, $n, por ejemplo:
+Find:
+^\d+::([\w\s:,\(\)'\.\/¡!\?Çéìò@H°ë"#Â+$ÅåÔãåÊÀîÉïæñøß½á*ùóíçÁöêèàüúäâûô&-]+)\s\((\d\d\d\d)\)::.*$
+^\d+::([\w\s:,\(\)'\.\/¡!\?Çéìò@H°ë"#Â+$ÅåÔãåÊÀîÉïæñøß½áùóíçÁöêèàüúäâûô&-]+)\s\((\d\d\d\d)\)::.$
+`insert into movies (year, title) values ($2, '$1');`
+crea sentencias de sql como las sigs. :
+`insert into movies (year, title) values (1995, 'Toy Story');`
+`insert into movies (year, title) values (1995, 'Jumanji');`
+
+o tambien se pueden crear json , ejemplo:
+Replace:
+{title: '$1' , year: $2},
+crea sentencias de json como las sigs. :
+{title: 'Toy Story' , year: 1995},
+{title: 'Jumanji' , year: 1995},
+
+OBTENER CATEGORIAS
+
+
+{categorie : 'Adventure', 'Animation, Children, Comedy, Fantasy}
+{categorie : 'Adventure', 'Children, Fanta, s, y}
+{categorie : 'Comedy', 'Roma, n, c, e}
+{categorie : 'Comedy', 'Drama, Roman, c, e}
+{categorie : 'Co', 'm, e, d, y}
+{categorie : 'Action', 'Crime, Thrill, e, r}
+
+REGEX toma la ultima categoria de la linea:
+^\d+::([\w\s:,\(\)'\.\/¡!\?Çéìò@H°ë"#Â+$ÅåÔãåÊÀîÉïæñøß½á*ùóíçÁöêèàüúäâûô&-]+)\s\((\d\d\d\d)\)::(([A-Z][a-z]+\|?)){1,}
+
+^\d+::[\w\s\(\)]+::([A-Z][a-z]+\|?)([A-Z][a-z]+\|?)([A-Z][a-z]+\|?)([A-Z][a-z]+\|?)([A-Z][a-z]+\|?)
+
+^\d+::[\w\s\(\)]+::([\w]+)\|?([\w]+).*$
+^\d+::[\w\s\(\)]+::([\w]+)\|?([\w]+)\|?([\w]+)\|?([\w]+)\|?([\w]+)\|?.*$
+
+
+Uso de REGEX para descomponer querys GET
+Al hacer consultas a sitios web mediante el método GET se envían todas las variables al servidor a través de la misma URL.
+La parte de esta url que viene luego del signo de interrogación ? se le llama query del request que es: variable1=valor1&variable2=valor2&...
+ y así tantas veces como se necesite. En esta clase veremos como extraer estas variables usando expresiones regulares.
+
+
+
+Ejemplos de Url para el ejercicios:
+
+https://b3co.com/?s=fotografia&mode=search&module=blog
+https://www.google.com/search?q=regex+platzi&oq=regex+platzi&aqs=chrome..69i57j69i60.6885j0j9&sourceid=chrome&ie=UTF-8
+https://co.search.yahoo.com/search?p=flickr&fr=yfp-t&fp=1&toggle=1&cop=mss&ie=UTF-8
+
+
+
+REGEX que obtiene el nombre de la variable y a lo que equivale
+[\?&](\w+)=([^&\n]+)
+
+Replace all:  ()
+(esto es un salto de linea)
+  - $1=$2
+-- obtiene sentencias como las siguientes:
+  - s=fotografia
+  - mode=search
+  - module=blog

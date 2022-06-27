@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex Eample</title>
+    <script>
+        function validate(str){
+            if(str.match(/^\w{5,10}@[\w\.]{2,10}\.\w{2,5}$/i)){
+                document.getElementById("boton").disabled=false;
+                document.getElementById("in").style.backgroundColor = 'green';
+            }
+            else {
+                document.getElementById("in").style.backgroundColor = 'red';
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="text" name="email" onkeyup="validate(this.value)" id = "in">
+    <input type="button" value="enviar" disabled id="boton" onclick="alert('Si es un email !!!')">
+</body>
+</html> 

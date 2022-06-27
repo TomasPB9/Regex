@@ -1,0 +1,441 @@
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Las clases predefinidas y construidas
+
+\w - caracteres de palabras
+\d - digitos
+\s - espacios
+[0-9] = \d
+[0-9a-zA-Z_] = \w
+
+\n  -  salto de linea
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Los delimitadores: +, *, ?
+
+¿Cuantas veces debe aparecer o puede aparecer?: 
++ - debe aparecer porque es uno o más veces
+* - puede aparecer, 0 o muchas veces
+? - puede aparecer, 0 o 1 veces
+
+Explicaciones más a fondo con ejemplos: 
+* - cero o todo  ( \d*[a-z] )  = puede haber o no haber digitos y enseguida caracter(es) de la a la z)
++ - uno o todo ( \d?[a-z]  ) = puede haber uno o mas digitos y enseguida caracter(es) de la a la z)
+? - cero o uno  ( \d?[a-z]  ) = puede no haber digitos o puede haber solo 1 digito , y enseguida caracter(es) de la a la z)
+
+Por lo tanto: los delimitadores van del lado derecho de la expresión y se leen de derecha a izquierda.
+Ejemplos:
+\d* → 0 o más dígitos.
+[a-z]? → 0 o 1 letra minúscula.
+\s+ → 1 o más espacios.
+
+ejemplo final:
+\d*[a-z]?s     = puede haber o no haber digitos, enseguida debe haber 1 o más caracteres de la a a la z , enseguida una s
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Los contadores {1,4}
+
+\d{2}  = 2 digitos juntos 
+\d{2,2}  = minimo 2 digitos juntos y maximo 2 digitos juntos 
+\d{2,5}  = minimo 2 digitos juntos y maximo 5 digitos juntos 
+\d{4,}  = minimo 4 digitos a más digitos (infinito)
+
+Ejemplo final :
+(\d{2,2}[-. ]?){5,5}     =encuentra 2 digitos juntos, enseguida puede haber 1 o no haber '-' ó '.' ó 'whitespace', y este patron se debe repetir 5 veces
+
+
+
+Ejemplo extra:
+Si quisiéramos encontrar una IP V4 estas son las regExp que podríamos utilizar.
+(\.?\d{1,3}){4,4}
+(\d\.?{1,3}){4,4}
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+El caso de (?) como delimitador
+
+NOTA: El caracter ? es un delimitador cuando esta antecedido por el +, para encontrar la minima ocurrencia posible.
+ Si no tiene el mas, ya no es delimitador sino simbolo de ocurrencia de cero a una vez.
+
+\n  =  salto de linea
+
+.*,  = que empiece con 0 o mas caracteres y termine con una ','  
+
+.+,  = que empiece con 1 o mas caracteres y termine con una ',' 
+csv1,csv2,csv3,csv4,csv5  (devuelve = csv1,csv2,csv3,csv4, (devuelve un solo match))
+
+.+?,  = que empiece con 1 o mas caracteres y termine con una ','  CONFORME LO VA ENCONTRANDO LO VA DEVOLVIENDO (DEVUELVE LOS MATCHES MAS PEQUEÑOS)
+csv1,csv2,csv3,csv4,csv5  (devuelve = csv1,csv2,csv3,csv4, (devuelve 4 matchs ))
+
+.+?[,\n]{1,1}   = que empiece con 1 o mas caracteres y termine con una ',' o  un salto de linea (\n)  /CONFORME LO VA ENCONTRANDO LO VA DEVOLVIENDO (DEVUELVE LOS MATCHES MAS PEQUEÑOS)/
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Not (^), su uso y sus peligros
+
+https://platzi.com/comentario/317916/
+
+Se puede negar de dos maneras
+ 
+   Negar las clases predefinida: se hace escribiendo la letra en mayúscula de cada clase.
+ 
+      Palabra: \W
+      Digito: \D
+      Espacio en blanco: \S
+ 
+   Negar caracteres concretos: se realiza con el símbolo ^ dentro de una clase definida es decir de corchetes
+
+\D  = niega y encuentra todo lo que no es un digito
+\W = niega y encuentra todo lo que no corresponde a la clase \w
+\S = encuentra todo lo que no son whiteSpaces
+
+^  = niega lo que se le ponga enseguida de el
+ejemplo :
+[^0-5a-c]   = devuelve todo lo que no tiene digitos del 0 al 5 y letras de la a a la c
+
+NOTA: Ejemplo de aplicación en SQL
+En SQL, si nos piden que hagamos la consulta (utilizando expresiones regulares) de una columna de una X estación, donde nos piden nombres que no empiecen en “aeiou” la consulta se podría realizar de la siguiente manera:
+
+SELECT columna 
+FROM nombre_tabla
+WHERE columna REGEXP '^[^aeiou]';
+
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+
+Reto: Filtrando letras en números telefónicos utilizando negaciones  
+
+Forma 1:
+(\d{2}[-.\s]?){3}
+
+Forma 2:
+\d+[^aA-zZ\n]{2,6}
+
+565811
+56-58-11
+56.58.11
+56.58-11
+56 58 11
+56y58r11
+
+
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Principio (^) y final de linea ($)
+
+
+^\d{3,6}$  = regresa las lineas que tengan de 3 a 6 digitos
+^\d{3, }$  = regresa las lineas que tengan de 3 a infinita cantidad de digitos
+^[^\d].*$  = regresa las lineas que empiezan con algo que no sea un digito
+^\D.*$     = regresa las lineas que empiezan con algo que no sea un digito
+
+Ejemplo: 
+^\w+,\w+,\w+$    = solo devuelve las primeras 3 lineas, porque o hace match completo con la linea o no la devuelve 
+^(\w+,){2}(\w+)$   = solo devuelve las primeras 3 lineas, porque o hace match completo con la linea o no la devuelve   (representa lo mismo)
+
+
+csv1,csv2,csv3
+1234,543,234
+432,765,368
+678,875,986,12
+
+^\d{3,5}$   =  devuelve solo las lineas que tienen de 3 a 5 digitos
+123
+1234
+12345
+123456
+
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Logs
+
+Las expresiones regulares son muy útiles para encontrar 
+líneas específicas que nos dicen algo muy puntual dentro de los archivos de logs que pueden lle gar a tener millones de líneas.
+
+
+^\[LOG.*\[WARN\].*$   =  encuentra en un log file solo las lineas con warnings
+^\[LOG.*\[ERROR\].*$  =  encuentra en un log file solo las lineas con errores
+^\[LOG.*\[LOG\].*@celismx\].*$    =  encuentra los log relacionados al usuario @celismx
+
+Ejemplos:
+Expresiones regulares útiles en logs, para buscar direcciones IP:
+    (\d{1,3}\.){3,3}(\d{1,3})
+   
+Para buscar líneas sobre métodos HTTP:
+     ^.*((GET)|(POST)|(PUT)|(DELETE)).*$
+    
+Para buscar líneas con fechas en el formato día(numero)/mes(nombre)/año(numero):
+    ^.*(\d{1,2}\/\w+\/\d{4,4}).*$
+
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Teléfonos
+
+Filtra los telefonos bien formados con la sig. regex: 
+^\+?\d{2,3}[^\da-z]?\d{2,3}[^\da-z]?\d{2,3}[#pe]?\d*$ 
+^\+?\d{2,3}[^\d]?\d{2,3}[^\d]?\d{2,3}[#pe]?\d*$
+
+555658
+56-58-11
+56.58.11
+56.78-98
+65 09 87
+76y87r98-NO
+45y78-56-NO
+78.87 65
+78 54-56
++521565811
+58-11-11#246
+55-5632-0417-NO
+56552048p123
+55256048e123
+
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+URLs
+
+REGEX que filtra las URL's validas : 
+^https?:\/\/[\w\-\.]+\.\w{2,5}\/?\S*$
+
+^https?\S*$      (Mucho más simplificada la REGEX)
+
+
+url: https://www.instagram.com/p/BXB4zsUlW5Z/?taken-by=beco.mx
+url: http://instagram.com/p/blablablah
+url: http://itam.mx/test
+http://instagram.com/p/blablablah
+https://www.google.com.co/
+https://sub.dominio.de.alguien.com/archivo.html
+https://en.wikipedia.org/wiki/.org
+https://cdn-microsoft.org/image/seixo2t9sjl_22.jpg
+https://hola.pizza
+https://platzi.com/clases/1301-expresiones-regulares/11860-urls9102/clase
+https://hola.pizza de_peperoni
+
+NOTA : TLD -> Top Level domains, dominio de nivel superior. Es la terminación de una página, puede ser .com, .org, .mx, etc.
+
+Ejemplos extra:
+Url hasta el TLD
+https?:\/\/[\w\-\.]+\.\w{2,5}
+
+Url Completa
+https?:\/\/[\w\-\.]+\.\w{2,5}\/?\S* 
+
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+
+Mails
+
+gmail solo permite . y no _   (tambien permite poner un alias , se pone seguido del sigo +  , ej.   esto.es_un.mail+complejo@mail.com)
+yahoo y hotmail perimte _ y no .
+
+
+Ejemplos para probar REGEX:
+esto.es_un.mail@mail.com
+esto.es_un.mail+complejo@mail.com
+@dominio.com
+rodrigo.jimenez@yahoo.com.mx
+ruben@starbucks.com
+esto_no$es_email@dominio.com
+no_se_de_internet3@hotmail.com
+
+REGEX que obtiene el usuario del email:
+[\w\._]{5,30}\+?[\w]{0,10}@
+
+REGEX que obtiene el dominio del email:
+@[\w\.\-]{3,}\.\w{2,5}$
+
+REGEX que obtiene el email:
+[\w\._]{5,30}\+?[\w]{0,10}@[\w\.\-]{3,}\.\w{2,5}$
+
+NOTA : Cuando se habla de error de capa 8, se refiere al error que sucede (entre el teclado y la silla). osea, TU
+
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+
+Localizaciones
+
+LATITUD Y LONGITUD EN FORMATO DECIMAL:
+-99.205646,
+-99.205646,19.429707,2275.10
+-99.205581, 19.429652,2275.10
+-99.204654,19.428952,2275.58
+
+LATITUD Y LONGITUD EN FORMATO DE RADIANES:
+-99 12' 34.08"W, 19 34' 56.98"N
+-34 54' 32.00"E, -3 21' 67.00"S
+
+
+REGEX que ayuda a filtrar coordenada de latitud y longitud en formato decimal:
+^-?\d{1,3}\.\d{1,6},\s?-?\d{1,3}\.\d{1,6},.*$
+
+REGEX que ayuda a filtrar coordenada de latitud y longitud en formato de radianes:
+^-?\d{1,3}\s\d{1,2}' \d{1,2}\.\d{2,2}"[WE], -?\d{1,3}\s\d{1,2}' \d{1,2}\.\d{2,2}"[NS]$
+
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Nombre(?) Reto
+
+REGEX para validar nombres propios:
+^[A-Z][a-z]{3,}\s?[A-Z]?[a-z]{0,}$
+
+REGEX 2 (mas completa) para validar nombres propios:
+^([A-Z][a-z]{1,}\s?){2,}.*$
+
+
+Nombres de Ejemplo:
+
+Camilo Sarmiento Gálvez
+Alejandro Pliego Abasto
+Milagros Reyes Japón
+Samuel París Arrabal
+Juan Pablo Tafalla
+Axel Gálvez Velázquez
+Óscar Montreal Aparicio
+Jacobo Pozo Tassis
+Guillermo Ordóñez Espiga
+Eduardo Pousa Curbelo
+Ivanna Bienvenida Kevin
+Ada Tasis López
+Luciana Sáenz García
+Florencia Sainz Márquz
+Catarina Cazalla Lombarda
+Paloma Gallo Perro
+Margarita Quesada Florez
+Vicente Fox Quesada
+Iris Graciani
+Asunción Carballar
+Constanza Muñoz
+Manuel Andres García Márquez
+
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Búsqueda y reemplazo
+
+
+Búsqueda y reemplazo   (link de data para ejercicio  :  https://github.com/gingsmith/moviedemo/blob/master/movies.dat)
+
+REGEX:
+
+Se pueden generar grupos al utilizar paréntesis “()”, cada uno de esos paréntesis a la hora de reemplazar podemos acceder 
+a el valor dentro del grupo con la variable $1, $2, $n, por ejemplo:
+Find:
+^\d+::([\w\s:,\(\)'\.\/¡!\?Çéìò@H°ë"#Â+$ÅåÔãåÊÀîÉïæñøß½á*ùóíçÁöêèàüúäâûô&-]+)\s\((\d\d\d\d)\)::.*$
+`insert into movies (year, title) values ($2, '$1');`
+crea sentencias de sql como las sigs. :
+`insert into movies (year, title) values (1995, 'Toy Story');`
+`insert into movies (year, title) values (1995, 'Jumanji');`
+
+o tambien se pueden crear json , ejemplo:
+Replace:
+{title: '$1' , year: $2},
+crea sentencias de json como las sigs. :
+{title: 'Toy Story' , year: 1995},
+{title: 'Jumanji' , year: 1995},
+
+
+{categorie : 'Adventure', 'Animation, Children, Comedy, Fantasy}
+{categorie : 'Adventure', 'Children, Fanta, s, y}
+{categorie : 'Comedy', 'Roma, n, c, e}
+{categorie : 'Comedy', 'Drama, Roman, c, e}
+{categorie : 'Co', 'm, e, d, y}
+
+REGEX que obtiene las categorias de las peliculas:
+^\d+::[\w\s\(\)]+::([\w]+)\|?([\w]+)\|?([\w]+)\|?([\w]+)\|?([\w]+)\|?.*$
+
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Uso de REGEX para descomponer querys GET
+
+Al hacer consultas a sitios web mediante el método GET se envían todas las variables al servidor a través de la misma URL.
+La parte de esta url que viene luego del signo de interrogación ? se le llama query del request que es: variable1=valor1&variable2=valor2&...
+ y así tantas veces como se necesite. En esta clase veremos como extraer estas variables usando expresiones regulares.
+
+
+
+Ejemplos de Url para el ejercicios:
+
+https://b3co.com/?s=fotografia&mode=search&module=blog
+https://www.google.com/search?q=regex+platzi&oq=regex+platzi&aqs=chrome..69i57j69i60.6885j0j9&sourceid=chrome&ie=UTF-8
+https://co.search.yahoo.com/search?p=flickr&fr=yfp-t&fp=1&toggle=1&cop=mss&ie=UTF-8
+
+
+
+REGEX que obtiene el nombre de la variable y a lo que equivale
+[\?&](\w+)=([^&\n]+)
+
+Replace all:  ()
+(esto es un salto de linea)
+  - $1=$2
+-- obtiene sentencias como las siguientes:
+  - s=fotografia
+  - mode=search
+  - module=blog
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Explicación del proyecto
+
+
+Vamos a utilizar un archivo de resultados de partidos de fútbol histórico con varios datos. El archivo es un csv de más de 39000 líneas diferentes.
+
+Con cada lenguaje intentaremos hacer una solución un poquito diferente para aprovecharlo y saber cómo utilizar expresiones regulares
+ en cada uno de los lenguajes.
+
+Usaremos las expresiones regulares en:
+Perl
+PHP
+Python
+Javascript
+
+NOTA :VS code tiene una extensión llamada “Excel previewer” que les puede servir para ver en tablas los archivos CSV. 
+No es necesario para este curso pero era un dato que quise compartir 😃
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Perl
+
